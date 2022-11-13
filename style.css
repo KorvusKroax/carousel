@@ -1,0 +1,175 @@
+:root {
+    --carousel-button-width: 5%;
+    --carousel-track-window-margin: 3%;
+}
+
+
+
+
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    width: 80vw;
+    margin: 0 auto;
+}
+
+
+
+
+
+.carousel {
+    width: 100%;
+    margin: 5em auto;
+}
+
+
+
+.carousel-container {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+
+.carousel-track-window {
+    width: 100%;
+
+    overflow: hidden;
+}
+
+.carousel-track {
+    --carousel-items-per-screen: 4;
+    --carousel-track-index: 0;
+
+    width: calc(100% - var(--carousel-track-window-margin) * 2);
+    margin-inline: auto;
+
+    display: flex;
+
+    transform: translateX(calc(-100% * var(--carousel-track-index)));
+    transition: transform .25s ease-out;
+}
+
+
+
+
+
+.carousel-item {
+    flex: 0 0 calc(100% / var(--carousel-items-per-screen));
+}
+
+.carousel-card {
+    padding: .5em;
+
+    user-select: none;
+}
+
+.carousel-card-image {
+    width: 100%;
+    aspect-ratio: 5 / 4;
+
+    object-fit: cover;
+}
+
+.carousel-card-title {
+    margin: 0;
+}
+
+
+
+.carousel-dialog {
+    max-width: calc(100vw - 5em);
+    max-height: calc(100vh - 5em);
+    padding: 1em;
+    
+    overflow: hidden;
+
+    background-color: white;
+
+    border: none;
+    box-shadow: 0 0 3em rgb(0, 0, 0, .5);
+}
+
+.carousel-dialog::backdrop {
+    background-color: rgb(0, 0, 0, .5);
+}
+
+.carousel-dialog-container {
+    display: inline-block;
+}
+
+.carousel-dialog-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+
+    object-fit: contain;
+
+    filter: drop-shadow(0 0 .5em rgb(0, 0, 0, .5));
+}
+
+.carousel-dialog-article {
+    background-color: blue;
+}
+
+.carousel-dialog-title {
+    background-color: red;
+}
+
+.carousel-dialog-text {
+    background-color: cyan;
+}
+
+.carousel-dialog-button {
+    margin: auto;
+    padding: .5em 2em;
+
+    background-color: darkslategray;
+    color: white;
+
+    user-select: none;
+    outline: none;
+    border: none;
+}
+
+.carousel-dialog-button:hover {
+    background-color: lightslategray;
+}
+
+
+
+
+
+.carousel-button {
+    width: var(--carousel-button-width);
+
+    background-color: darkslategray;
+    color: white;
+
+    font-size: 3em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    user-select: none;
+    outline: none;
+    border: none;
+}
+
+.carousel-button:hover {
+    background-color: lightslategray;
+}
+
+
+
+
+
+/* .carousel-indicator-container {} */
+
+/* .carousel-indicator {} */
