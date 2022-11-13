@@ -15,17 +15,17 @@
                 $text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias earum, quia voluptatibus qui dolorem ut placeat magni voluptates dolores maxime. Mollitia repudiandae facilis quo laboriosam assumenda vero illo provident dignissimos.";
                 require("card.php");
 
-                $image = "images/rwdmd4.jpg";
-                $title = "Lorem ipsum";
-                $text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias earum, quia voluptatibus qui dolorem ut placeat magni voluptates dolores maxime. Mollitia repudiandae facilis quo laboriosam assumenda vero illo provident dignissimos.";
-                require("card.php");
-
                 $image = "images/sweeney-todd-johnny-depp-helena-bonham-carter-bythesea.jpg";
                 $title = "Lorem ipsum";
                 $text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias earum, quia voluptatibus qui dolorem ut placeat magni voluptates dolores maxime. Mollitia repudiandae facilis quo laboriosam assumenda vero illo provident dignissimos.";
                 require("card.php");
 
                 $image = "images/top-10-greatest-johnny-depp-movies-of-all-time.jpg";
+                $title = "Lorem ipsum";
+                $text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias earum, quia voluptatibus qui dolorem ut placeat magni voluptates dolores maxime. Mollitia repudiandae facilis quo laboriosam assumenda vero illo provident dignissimos.";
+                require("card.php");
+
+                $image = "images/rwdmd4.jpg";
                 $title = "Lorem ipsum";
                 $text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias earum, quia voluptatibus qui dolorem ut placeat magni voluptates dolores maxime. Mollitia repudiandae facilis quo laboriosam assumenda vero illo provident dignissimos.";
                 require("card.php");
