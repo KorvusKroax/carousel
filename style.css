@@ -43,7 +43,7 @@ body {
 }
 
 .carousel-track {
-    --carousel-items-per-screen: 4;
+    --carousel-items-per-screen: 3;
     --carousel-track-index: 0;
 
     width: calc(100% - var(--carousel-track-window-margin) * 2);
