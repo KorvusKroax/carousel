@@ -14,17 +14,17 @@
     .thumbnail {
         width: 300px;
         aspect-ratio: 5 / 4;
-        display: block;
 
-        object-fit: cover;
+        object-fit: contain;
+        border: 1px solid black;
     }
 
 
 
     .modal {
-        max-width: calc(100vw - 10rem);
-        max-height: calc(100vh - 10rem);
-        padding: 2rem;
+        max-width: calc(100vw - 4rem);
+        max-height: calc(100vh - 4rem);
+        padding: 1rem;
 
         border: none;
         box-shadow: 0 0 3rem rgb(0, 0, 0, .5);
@@ -46,15 +46,10 @@
 
 
 <body>
-    <img class="thumbnail" src="images/sweeney-todd-johnny-depp-helena-bonham-carter-bythesea.jpg">
-    <img class="thumbnail" src="images/top-10-greatest-johnny-depp-movies-of-all-time.jpg">
-    <img class="thumbnail" src="images/list-of-johnny-depp-movies-in-order.webp">
-    <img class="thumbnail" src="images/sweeney-todd-johnny-depp-helena-bonham-carter-bythesea.jpg">
-    <img class="thumbnail" src="images/top-10-greatest-johnny-depp-movies-of-all-time.jpg">
-    <img class="thumbnail" src="images/list-of-johnny-depp-movies-in-order.webp">
-    <img class="thumbnail" src="images/sweeney-todd-johnny-depp-helena-bonham-carter-bythesea.jpg">
-    <img class="thumbnail" src="images/top-10-greatest-johnny-depp-movies-of-all-time.jpg">
-    <img class="thumbnail" src="images/list-of-johnny-depp-movies-in-order.webp">
+    <img class="thumbnail" src="images/mia_goth_jenna_ortega_brittany_snow_kid_cudi_4k_hd_x_2022.jpg">
+    <img class="thumbnail" src="images/wide.jpg">
+    <img class="thumbnail" src="images/tall.jpg">
+    <img class="thumbnail" src="images/small.jpg">
 
     <dialog class="modal">
         <img class="modal-image">
@@ -72,10 +67,10 @@
 
             const modalImage = modal.querySelector(".modal-image");
             modalImage.src = item.src;
-            
+
             modal.showModal();
-            
-            imageSize(modalImage);            
+
+            imageSize(modalImage);
             maxSize(modalImage);
 
             setSize(modalImage);
@@ -109,32 +104,42 @@
 
 
 
-    function setSize(image)
-    {
+    function setSize(image) {
         image.style.width = "100vw";
         image.style.height = "100vh";
 
         const imageWidth = image.naturalWidth;
         const imageHeight = image.naturalHeight;
-        let aspectRatio = imageWidth / imageHeight;
+
+        let maxWidth = modal.clientWidth;
+        let maxHeight = modal.clientHeight;
 
         const style = modal.currentStyle || window.getComputedStyle(modal);
-        let maxWidth = modal.clientWidth - parseInt(style.paddingLeft) - parseInt(style.paddingRight);
-        let maxHeight = modal.clientHeight - parseInt(style.paddingTop) - parseInt(style.paddingBottom);
+        maxWidth -= parseInt(style.paddingLeft) + parseInt(style.paddingRight);
+        maxHeight -= parseInt(style.paddingTop) + parseInt(style.paddingBottom);
+
+
+
+        let width = Math.min(imageWidth, maxWidth);
+        let height = Math.min(imageHeight, maxHeight);
+
+        if (height < imageHeight) {
+            width = height * (imageWidth / imageHeight);
+        }
 
 
 
 
 
-        image.style.width = Math.min(imageWidth, maxWidth) + "px";
-        image.style.height = Math.min(imageHeight, maxHeight) + "px";
+
+        image.style.width = width + "px";
+        image.style.height = height + "px";
 
 
 
-        console.log("setWidth: " + Math.min(imageWidth, maxWidth) + "px");
-        console.log("setHeight: " +  Math.min(imageHeight, maxHeight) + "px");
+        console.log("setWidth: " + width);
+        console.log("setHeight: " + height);
     }
-
 </script>
 
 </html>
