@@ -11,6 +11,10 @@
 
 
 <style>
+    * {
+        box-sizing: border-box;
+    }
+
     .thumbnail {
         width: 300px;
         aspect-ratio: 5 / 4;
@@ -22,8 +26,6 @@
 
 
     .modal {
-        max-width: calc(100vw - 4rem);
-        max-height: calc(100vh - 4rem);
         padding: 1rem;
 
         border: none;
@@ -35,9 +37,10 @@
     }
 
     .modal-image {
+        display: block;
+        overflow: hidden;
         /* width: 100%; */
         /* height: 100%; */
-        /* display: block; */
 
         /* object-fit: contain; */
     }
@@ -63,15 +66,11 @@
 
     document.querySelectorAll(".thumbnail").forEach((item) => {
         item.addEventListener("click", () => {
-            console.log("...");
 
             const modalImage = modal.querySelector(".modal-image");
             modalImage.src = item.src;
 
             modal.showModal();
-
-            imageSize(modalImage);
-            maxSize(modalImage);
 
             setSize(modalImage);
         });
@@ -79,66 +78,49 @@
 
 
 
+    function setSize(image) {
+        image.style.width = "";
+        image.style.height = "";
 
-
-    function imageSize(image) {
         const imageWidth = image.naturalWidth;
         const imageHeight = image.naturalHeight;
-        let aspectRatio = imageWidth / imageHeight;
 
-        console.log("imageWidth: " + imageWidth);
-        console.log("imageHeight: " + imageHeight);
-        console.log("aspectRatio: " + aspectRatio);
-    }
+        // let maxWidth = window.innerWidth;
+        // let maxHeight = window.innerHeight;
 
-
-
-    function maxSize(image) {
         const style = modal.currentStyle || window.getComputedStyle(modal);
         let maxWidth = modal.clientWidth - parseInt(style.paddingLeft) - parseInt(style.paddingRight);
         let maxHeight = modal.clientHeight - parseInt(style.paddingTop) - parseInt(style.paddingBottom);
 
+
+
+        // let width = Math.min(imageWidth, maxWidth);
+        // let height = Math.min(imageHeight, maxHeight);
+
+        // if (height < imageHeight) {
+        //     width = height * (imageWidth / imageHeight);
+        // }
+
+
+
+
+
+
+        image.style.width = maxWidth + "px";
+        // image.style.height = maxHeight + "px";
+
+
+
+        console.log("imageWidth: " + imageWidth);
+        console.log("imageHeight: " + imageHeight);
+        console.log("aspectRatio: " + (imageWidth / imageHeight));
+        console.log(".");
         console.log("maxWidth: " + maxWidth);
         console.log("maxHeight: " + maxHeight);
-    }
-
-
-
-    function setSize(image) {
-        image.style.width = "100vw";
-        image.style.height = "100vh";
-
-        const imageWidth = image.naturalWidth;
-        const imageHeight = image.naturalHeight;
-
-        let maxWidth = modal.clientWidth;
-        let maxHeight = modal.clientHeight;
-
-        const style = modal.currentStyle || window.getComputedStyle(modal);
-        maxWidth -= parseInt(style.paddingLeft) + parseInt(style.paddingRight);
-        maxHeight -= parseInt(style.paddingTop) + parseInt(style.paddingBottom);
-
-
-
-        let width = Math.min(imageWidth, maxWidth);
-        let height = Math.min(imageHeight, maxHeight);
-
-        if (height < imageHeight) {
-            width = height * (imageWidth / imageHeight);
-        }
-
-
-
-
-
-
-        image.style.width = width + "px";
-        image.style.height = height + "px";
-
-
-
-        console.log("setWidth: " + width);
-        console.log("setHeight: " + height);
+        // console.log(".");
+        // console.log("setWidth: " + width);
+        // console.log("setHeight: " + height);
+        console.log("---------------");
     }
 </script>
 
