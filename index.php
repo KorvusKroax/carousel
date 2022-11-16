@@ -40,6 +40,22 @@
 
     .modal-image {
         display: block;
+        user-select: none;
+    }
+
+    .modal-button {
+        padding: .5em 2em;
+
+        background-color: darkslategray;
+        color: white;
+
+        user-select: none;
+        outline: none;
+        border: none;
+    }
+
+    .modal-button:hover {
+        background-color: lightslategray;
     }
 </style>
 
@@ -58,6 +74,7 @@
             <h2>Lorem ipsum</h2>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam voluptates pariatur eius expedita assumenda illo quibusdam officia nulla, quaerat modi consectetur consequatur totam commodi hic qui recusandae ratione, labore sit!</p>
         </article>
+        <button class="modal-button">OK</button>
     </dialog>
 </body>
 
@@ -73,18 +90,25 @@
             modalImage.src = item.src;
 
             modal.showModal();
-
             setSize();
         });
     });
 
+    modal.querySelector(".modal-button").addEventListener("click", () => { modal.close(); });
+
+    window.onresize = () => { if (modal.open) setSize(); };
 
 
-    function setSize() {
+
+    function setSize() 
+    {
         modalImage.style.width = "";
         modalImage.style.height = "";
+
         modal.style.width = "";
         modal.style.height = "";
+
+
 
         const originalWidth = modalImage.naturalWidth;
         const originalHeight = modalImage.naturalHeight;
@@ -124,21 +148,24 @@
             }
         }
 
+
+        
         modalImage.style.width = width + "px";
         modalImage.style.height = height + "px";
+
         modal.style.width = (width + paddingVertical) + "px";
         // modal.style.height = (height + paddingHorizontal) + "px";
 
 
 
-        console.log("originalWidth: " + originalWidth);
-        console.log("originalHeight: " + originalHeight);
-        console.log("aspectRatio: " + (originalWidth / originalHeight));
-        console.log("maxWidth: " + maxWidth);
-        console.log("maxHeight: " + maxHeight);
-        console.log("setWidth: " + width);
-        console.log("setHeight: " + height);
-        console.log(".");
+        // console.log("originalWidth: " + originalWidth);
+        // console.log("originalHeight: " + originalHeight);
+        // console.log("aspectRatio: " + (originalWidth / originalHeight));
+        // console.log("maxWidth: " + maxWidth);
+        // console.log("maxHeight: " + maxHeight);
+        // console.log("setWidth: " + width);
+        // console.log("setHeight: " + height);
+        // console.log(".");
     }
 </script>
 
