@@ -30,6 +30,8 @@
 
         border: none;
         box-shadow: 0 0 3rem rgb(0, 0, 0, .5);
+
+        overflow-x: hidden;
     }
 
     .modal::backdrop {
@@ -38,11 +40,6 @@
 
     .modal-image {
         display: block;
-        overflow: hidden;
-        /* width: 100%; */
-        /* height: 100%; */
-
-        /* object-fit: contain; */
     }
 </style>
 
@@ -50,12 +47,17 @@
 
 <body>
     <img class="thumbnail" src="images/mia_goth_jenna_ortega_brittany_snow_kid_cudi_4k_hd_x_2022.jpg">
+    <img class="thumbnail" src="images/mia_goth_jenna_ortega_brittany_snow_kid_cudi_4k_hd_x_2022_turned.jpg">
     <img class="thumbnail" src="images/wide.jpg">
     <img class="thumbnail" src="images/tall.jpg">
     <img class="thumbnail" src="images/small.jpg">
 
     <dialog class="modal">
         <img class="modal-image">
+        <article>
+            <h2>Lorem ipsum</h2>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam voluptates pariatur eius expedita assumenda illo quibusdam officia nulla, quaerat modi consectetur consequatur totam commodi hic qui recusandae ratione, labore sit!</p>
+        </article>
     </dialog>
 </body>
 
@@ -63,64 +65,80 @@
 
 <script>
     const modal = document.querySelector(".modal");
+    const modalImage = modal.querySelector(".modal-image");
 
     document.querySelectorAll(".thumbnail").forEach((item) => {
         item.addEventListener("click", () => {
 
-            const modalImage = modal.querySelector(".modal-image");
             modalImage.src = item.src;
 
             modal.showModal();
 
-            setSize(modalImage);
+            setSize();
         });
     });
 
 
 
-    function setSize(image) {
-        image.style.width = "";
-        image.style.height = "";
+    function setSize() {
+        modalImage.style.width = "";
+        modalImage.style.height = "";
+        modal.style.width = "";
+        modal.style.height = "";
 
-        const imageWidth = image.naturalWidth;
-        const imageHeight = image.naturalHeight;
+        const originalWidth = modalImage.naturalWidth;
+        const originalHeight = modalImage.naturalHeight;
 
-        // let maxWidth = window.innerWidth;
-        // let maxHeight = window.innerHeight;
+        const modalStyle = modal.currentStyle || window.getComputedStyle(modal);
+        let paddingVertical = parseInt(modalStyle.paddingLeft) + parseInt(modalStyle.paddingRight);
+        let paddingHorizontal = parseInt(modalStyle.paddingTop) + parseInt(modalStyle.paddingBottom);
 
-        const style = modal.currentStyle || window.getComputedStyle(modal);
-        let maxWidth = modal.clientWidth - parseInt(style.paddingLeft) - parseInt(style.paddingRight);
-        let maxHeight = modal.clientHeight - parseInt(style.paddingTop) - parseInt(style.paddingBottom);
-
-
-
-        // let width = Math.min(imageWidth, maxWidth);
-        // let height = Math.min(imageHeight, maxHeight);
-
-        // if (height < imageHeight) {
-        //     width = height * (imageWidth / imageHeight);
-        // }
+        let maxWidth = modal.clientWidth - paddingVertical;
+        let maxHeight = modal.clientHeight - paddingHorizontal;
 
 
 
+        let width = originalWidth + paddingVertical;
+        let height = originalHeight + paddingHorizontal;
+
+        if (originalWidth > maxWidth) 
+        {
+            width = maxWidth;
+            height = width * (originalHeight / originalWidth);
+
+            if (height > maxHeight) 
+            {
+                height = maxHeight;
+                width = height * (originalWidth / originalHeight);
+            }
+        } 
+        else if (originalHeight > maxHeight) 
+        {
+            height = maxHeight;
+            width = height * (originalWidth / originalHeight);
+
+            if (width > maxWidth) 
+            {
+                width = maxWidth;
+                height = width * (originalHeight / originalWidth);
+            }
+        }
+
+        modalImage.style.width = width + "px";
+        modalImage.style.height = height + "px";
+        modal.style.width = (width + paddingVertical) + "px";
+        // modal.style.height = (height + paddingHorizontal) + "px";
 
 
 
-        image.style.width = maxWidth + "px";
-        // image.style.height = maxHeight + "px";
-
-
-
-        console.log("imageWidth: " + imageWidth);
-        console.log("imageHeight: " + imageHeight);
-        console.log("aspectRatio: " + (imageWidth / imageHeight));
-        console.log(".");
+        console.log("originalWidth: " + originalWidth);
+        console.log("originalHeight: " + originalHeight);
+        console.log("aspectRatio: " + (originalWidth / originalHeight));
         console.log("maxWidth: " + maxWidth);
         console.log("maxHeight: " + maxHeight);
-        // console.log(".");
-        // console.log("setWidth: " + width);
-        // console.log("setHeight: " + height);
-        console.log("---------------");
+        console.log("setWidth: " + width);
+        console.log("setHeight: " + height);
+        console.log(".");
     }
 </script>
 
