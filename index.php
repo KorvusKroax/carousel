@@ -62,19 +62,21 @@
 
 
 <body>
-    <img class="thumbnail" src="images/mia_goth_jenna_ortega_brittany_snow_kid_cudi_4k_hd_x_2022.jpg">
-    <img class="thumbnail" src="images/mia_goth_jenna_ortega_brittany_snow_kid_cudi_4k_hd_x_2022_turned.jpg">
-    <img class="thumbnail" src="images/wide.jpg">
-    <img class="thumbnail" src="images/tall.jpg">
-    <img class="thumbnail" src="images/small.jpg">
+    <img class="thumbnail" src="images/mia_goth_jenna_ortega_brittany_snow_kid_cudi_4k_hd_x_2022.jpg" title="large">
+    <img class="thumbnail" src="images/mia_goth_jenna_ortega_brittany_snow_kid_cudi_4k_hd_x_2022_turned.jpg" title="large turned">
+    <img class="thumbnail" src="images/wide.jpg" title="wide">
+    <img class="thumbnail" src="images/tall.jpg" title="tall">
+    <img class="thumbnail" src="images/small.jpg" title="small">
 
     <dialog class="modal">
-        <img class="modal-image">
-        <article>
-            <h2>Lorem ipsum</h2>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam voluptates pariatur eius expedita assumenda illo quibusdam officia nulla, quaerat modi consectetur consequatur totam commodi hic qui recusandae ratione, labore sit!</p>
-        </article>
-        <button class="modal-button">OK</button>
+        <div class="modal-container">
+            <img class="modal-image">
+            <article>
+                <h2>Lorem ipsum</h2>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam voluptates pariatur eius expedita assumenda illo quibusdam officia nulla, quaerat modi consectetur consequatur totam commodi hic qui recusandae ratione, labore sit!</p>
+            </article>
+            <button class="modal-button">OK</button>
+        </div>
     </dialog>
 </body>
 
@@ -94,14 +96,19 @@
         });
     });
 
-    modal.querySelector(".modal-button").addEventListener("click", () => { modal.close(); });
+    modal.querySelector(".modal-button").addEventListener("click", () => {
+        modal.close();
+    });
 
-    window.onresize = () => { if (modal.open) setSize(); };
+    window.onresize = () => {
+        if (modal.open) setSize();
+    };
 
 
 
-    function setSize() 
-    {
+    function setSize() {
+        const pixelSize = 1 / window.devicePixelRatio;
+
         modalImage.style.width = "";
         modalImage.style.height = "";
 
@@ -110,61 +117,79 @@
 
 
 
-        const originalWidth = modalImage.naturalWidth;
-        const originalHeight = modalImage.naturalHeight;
+        const originalImageWidth = modalImage.naturalWidth * pixelSize;
+        const originalImageHeight = modalImage.naturalHeight * pixelSize;
 
         const modalStyle = modal.currentStyle || window.getComputedStyle(modal);
-        let paddingVertical = parseInt(modalStyle.paddingLeft) + parseInt(modalStyle.paddingRight);
-        let paddingHorizontal = parseInt(modalStyle.paddingTop) + parseInt(modalStyle.paddingBottom);
+        let paddingHorizontal = parseInt(modalStyle.paddingLeft) + parseInt(modalStyle.paddingRight);
+        let paddingVertical = parseInt(modalStyle.paddingTop) + parseInt(modalStyle.paddingBottom);
 
-        let maxWidth = modal.clientWidth - paddingVertical;
-        let maxHeight = modal.clientHeight - paddingHorizontal;
+        let maxImageWidth = modal.clientWidth - paddingHorizontal;
+        let maxImageHeight = modal.clientHeight - paddingVertical;
 
 
 
-        let width = originalWidth + paddingVertical;
-        let height = originalHeight + paddingHorizontal;
+        let imageWidth = originalImageWidth;
+        let imageHeight = originalImageHeight;
 
-        if (originalWidth > maxWidth) 
-        {
-            width = maxWidth;
-            height = width * (originalHeight / originalWidth);
+        if (imageWidth > maxImageWidth) {
+            imageWidth = maxImageWidth;
+            imageHeight = imageWidth * (originalImageHeight / originalImageWidth);
 
-            if (height > maxHeight) 
-            {
-                height = maxHeight;
-                width = height * (originalWidth / originalHeight);
+            if (imageHeight > maxImageHeight) {
+                imageHeight = maxImageHeight;
+                imageWidth = imageHeight * (originalImageWidth / originalImageHeight);
             }
-        } 
-        else if (originalHeight > maxHeight) 
-        {
-            height = maxHeight;
-            width = height * (originalWidth / originalHeight);
+        } else if (imageHeight > maxImageHeight) {
+            imageHeight = maxImageHeight;
+            imageWidth = imageHeight * (originalImageWidth / originalImageHeight);
 
-            if (width > maxWidth) 
-            {
-                width = maxWidth;
-                height = width * (originalHeight / originalWidth);
+            if (imageWidth > maxImageWidth) {
+                imageWidth = maxImageWidth;
+                imageHeight = imageWidth * (originalImageHeight / originalImageWidth);
             }
         }
 
-
-        
-        modalImage.style.width = width + "px";
-        modalImage.style.height = height + "px";
-
-        modal.style.width = (width + paddingVertical) + "px";
-        // modal.style.height = (height + paddingHorizontal) + "px";
+        modalImage.style.width = imageWidth + "px";
+        modalImage.style.height = imageHeight + "px";
 
 
 
-        // console.log("originalWidth: " + originalWidth);
-        // console.log("originalHeight: " + originalHeight);
-        // console.log("aspectRatio: " + (originalWidth / originalHeight));
-        // console.log("maxWidth: " + maxWidth);
-        // console.log("maxHeight: " + maxHeight);
-        // console.log("setWidth: " + width);
-        // console.log("setHeight: " + height);
+        modal.style.width = (imageWidth + paddingHorizontal) + "px";
+
+        if (modal.scrollHeight > modal.clientHeight)
+        {
+
+            let textHeight = modal.scrollHeight - imageHeight;
+
+            imageHeight = maxImageHeight - textHeight;
+            imageWidth = imageHeight * (originalImageWidth / originalImageHeight);
+
+            // if (imageWidth > maxImageWidth) {
+            //     imageWidth = maxImageWidth;
+            //     imageHeight = imageWidth * (originalImageHeight / originalImageWidth);
+            // }
+
+            modalImage.style.width = imageWidth + "px";
+            modalImage.style.height = imageHeight + "px";
+            modal.style.width = Math.max((imageWidth + paddingHorizontal), 300) + "px";
+
+            console.log("modal.scrollHeight: " + modal.scrollHeight);
+            console.log("modal.clientHeight: " + modal.clientHeight);
+            console.log("maxHeight: " + maxImageHeight);
+            console.log("");
+
+       }
+
+
+
+        // console.log("originalImageWidth: " + originalImageWidth);
+        // console.log("originalImageHeight: " + originalImageHeight);
+        // console.log("aspectRatio: " + (originalImageWidth / originalImageHeight));
+        // console.log("maxImageWidth: " + maxImageWidth);
+        // console.log("maxImageHeight: " + maxImageHeight);
+        // console.log("setWidth: " + imageWidth);
+        // console.log("setHeight: " + imageHeight);
         // console.log(".");
     }
 </script>
