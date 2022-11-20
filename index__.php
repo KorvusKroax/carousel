@@ -80,7 +80,6 @@
         <img class="modal-image">
         <h2>Lorem ipsum</h2>
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam voluptates pariatur eius expedita assumenda illo quibusdam officia nulla, quaerat modi consectetur consequatur totam commodi hic qui recusandae ratione, labore sit!</p>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam voluptates pariatur eius expedita assumenda illo quibusdam officia nulla, quaerat modi consectetur consequatur totam commodi hic qui recusandae ratione, labore sit!</p>
         <button class="modal-button">OK</button>
     </dialog>
 </body>
@@ -142,22 +141,7 @@
         if (imageWidth > maxImageWidth) {
             imageWidth = maxImageWidth;
             imageHeight = imageWidth * (originalImageHeight / originalImageWidth);
-
-            // if (imageHeight > maxImageHeight) {
-            //     imageHeight = maxImageHeight;
-            //     imageWidth = imageHeight * (originalImageWidth / originalImageHeight);
-            // }
         }
-
-        // if (imageHeight > maxImageHeight) {
-        //     imageHeight = maxImageHeight;
-        //     imageWidth = imageHeight * (originalImageWidth / originalImageHeight);
-
-        //     if (imageWidth > maxImageWidth) {
-        //         imageWidth = maxImageWidth;
-        //         imageHeight = imageWidth * (originalImageHeight / originalImageWidth);
-        //     }
-        // }
 
         modalImage.style.width = imageWidth + "px";
         modalImage.style.height = imageHeight + "px";
@@ -177,12 +161,12 @@
             modal.style.width = (imageWidth + paddingHorizontal) + "px";
 
             if (imageHeight < (maxImageHeight * .7)) {
-                // imageHeight = maxImageHeight * .7;
-                // imageWidth = imageHeight * (originalImageWidth / originalImageHeight);
+                imageHeight = maxImageHeight * .7;
+                imageWidth = imageHeight * (originalImageWidth / originalImageHeight);
 
-                // modalImage.style.width = imageWidth + "px";
-                // modalImage.style.height = imageHeight + "px";
-                // modal.style.width = (imageWidth + paddingHorizontal) + "px";
+                modalImage.style.width = imageWidth + "px";
+                modalImage.style.height = imageHeight + "px";
+                modal.style.width = (imageWidth + paddingHorizontal) + "px";
 
                 console.log("too large text for clientHeight");
                 break;

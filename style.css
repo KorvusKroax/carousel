@@ -24,7 +24,7 @@ body {
 
 .carousel {
     width: 100%;
-    margin: 5em auto;
+    margin: 3em auto;
 }
 
 
@@ -43,7 +43,7 @@ body {
 }
 
 .carousel-track {
-    --carousel-items-per-screen: 3;
+    --carousel-items-per-screen: 4;
     --carousel-track-index: 0;
 
     width: calc(100% - var(--carousel-track-window-margin) * 2);

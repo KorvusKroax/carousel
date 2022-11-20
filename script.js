@@ -73,12 +73,12 @@ document.querySelectorAll(".carousel").forEach((carousel) => {
                 modal.style.width = (imageWidth + paddingHorizontal + 1) + "px";
 
                 if (imageHeight < (maxImageHeight * .7)) {
-                    // imageHeight = maxImageHeight * .7;
-                    // imageWidth = imageHeight * (originalImageWidth / originalImageHeight);
+                    imageHeight = maxImageHeight * .7;
+                    imageWidth = imageHeight * (originalImageWidth / originalImageHeight);
 
-                    // modalImage.style.width = imageWidth + "px";
-                    // modalImage.style.height = imageHeight + "px";
-                    // modal.style.width = (imageWidth + paddingHorizontal + 1) + "px";
+                    modalImage.style.width = imageWidth + "px";
+                    modalImage.style.height = imageHeight + "px";
+                    modal.style.width = (imageWidth + paddingHorizontal + 1) + "px";
 
                     console.log("too large text for clientHeight");
                     break;

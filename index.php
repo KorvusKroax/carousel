@@ -17,15 +17,9 @@
 
 
 
-    <?php require("carousel.php"); ?>
+    <?php require("carousel_1.php"); ?>
 
-    <?php require("carousel.php"); ?>
-
-    <?php require("carousel.php"); ?>
-
-    <?php require("carousel.php"); ?>
-
-    <?php require("carousel.php"); ?>
+    <?php require("carousel_2.php"); ?>
 
 
 
