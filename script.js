@@ -29,11 +29,13 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 			const originalImageHeight = Math.floor(modalImage.naturalHeight * pixelSize);
 
 			const modalStyle = modal.currentStyle || window.getComputedStyle(modal);
-			let paddingHorizontal = parseInt(modalStyle.paddingLeft) + parseInt(modalStyle.paddingRight);
-			let paddingVertical = parseInt(modalStyle.paddingTop) + parseInt(modalStyle.paddingBottom);
+			const paddingHorizontal = parseInt(modalStyle.paddingLeft) + parseInt(modalStyle.paddingRight);
+			const paddingVertical = parseInt(modalStyle.paddingTop) + parseInt(modalStyle.paddingBottom);
 
-			let maxImageWidth = modal.clientWidth - paddingHorizontal;
-			let maxImageHeight = modal.clientHeight - paddingVertical;
+			const maxImageWidth = modal.clientWidth - paddingHorizontal;
+			const maxImageHeight = modal.clientHeight - paddingVertical;
+
+
 
 			let imageWidth = originalImageWidth;
 			let imageHeight = originalImageHeight;
@@ -47,9 +49,11 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 			modalImage.style.height = imageHeight + "px";
 			modal.style.width = imageWidth + paddingHorizontal + 1 + "px";
 
+
+
 			while (modal.scrollHeight > modal.clientHeight) 
             {
-				let textHeight = modal.scrollHeight - imageHeight;
+				const textHeight = modal.scrollHeight - imageHeight;
 
 				imageHeight = maxImageHeight - textHeight;
 				imageWidth = imageHeight * (originalImageWidth / originalImageHeight);
