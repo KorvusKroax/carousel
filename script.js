@@ -1,6 +1,8 @@
 document.querySelectorAll(".carousel").forEach((carousel) => 
 {
+	const container = carousel.querySelector(".carousel-container");
 	const track = carousel.querySelector(".carousel-track");
+	const indicatorContainer = carousel.querySelector(".carousel-indicator-container");
 
 	const items = track.querySelectorAll(".carousel-item");
 	items.forEach((item) => 
@@ -17,13 +19,11 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 
 		function setSize() 
         {
-			const pixelSize = 1 / window.devicePixelRatio;
-
 			modalImage.style.width = "";
 			modalImage.style.height = "";
-
 			modal.style.width = "";
-			modal.style.height = "";
+
+			const pixelSize = 1 / window.devicePixelRatio;
 
 			const originalImageWidth = Math.floor(modalImage.naturalWidth * pixelSize);
 			const originalImageHeight = Math.floor(modalImage.naturalHeight * pixelSize);
@@ -47,33 +47,18 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 
 			modalImage.style.width = imageWidth + "px";
 			modalImage.style.height = imageHeight + "px";
-			modal.style.width = imageWidth + paddingHorizontal + 1 + "px";
+			modal.style.width = imageWidth + paddingHorizontal + "px";
 
-
-
-			while (modal.scrollHeight > modal.clientHeight) 
+			imageHeight -= (modal.scrollHeight - modal.clientHeight);
+			while ((modal.scrollHeight > modal.clientHeight) && (imageHeight > maxImageHeight * 0.7))
             {
-				const textHeight = modal.scrollHeight - imageHeight;
-
-				imageHeight = maxImageHeight - textHeight;
 				imageWidth = imageHeight * (originalImageWidth / originalImageHeight);
 
 				modalImage.style.width = imageWidth + "px";
 				modalImage.style.height = imageHeight + "px";
-				modal.style.width = imageWidth + paddingHorizontal + 1 + "px";
+				modal.style.width = imageWidth + paddingHorizontal + "px";
 
-				if (imageHeight < maxImageHeight * 0.7) 
-                {
-					imageHeight = maxImageHeight * 0.7;
-					imageWidth = imageHeight * (originalImageWidth / originalImageHeight);
-
-					modalImage.style.width = imageWidth + "px";
-					modalImage.style.height = imageHeight + "px";
-					modal.style.width = imageWidth + paddingHorizontal + 1 + "px";
-
-					console.log("too large text for clientHeight");
-					break;
-				}
+				imageHeight -= (modal.scrollHeight - modal.clientHeight);
 			}
 		}
         
@@ -93,54 +78,102 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 	});
 
 	const buttonNext = carousel.querySelector(".carousel-button.next");
-	buttonNext.addEventListener("click", () => {
+	buttonNext.addEventListener("click", () => 
+	{
 		paging(+1);
 	});
 
-	function paging(direction) {
+	function paging(direction) 
+	{
 		let trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
 		trackIndex += direction;
 		track.style.setProperty("--carousel-track-index", trackIndex);
+		
+		indicatorContainer.children[trackIndex - direction].classList.remove("selected");
+		indicatorContainer.children[trackIndex].classList.add("selected");
 
-		// setButtonsVisibility();
+		setButtonsVisibility();
 	}
 
-	// setButtonsVisibility();
+	setButtonsVisibility();
 
-	// function setButtonsVisibility()
-	// {
-	//     const trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
-	//     const itemsPerScreen = parseInt(getComputedStyle(track).getPropertyValue("--carousel-items-per-screen"));
+	function setButtonsVisibility()
+	{
+	    const buttonWidth = parseInt(getComputedStyle(track).getPropertyValue("--carousel-button-width"));
 
-	//     console.log("itemsPerScreen: " + itemsPerScreen);
+	    const trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
+	    const itemsPerScreen = parseInt(getComputedStyle(track).getPropertyValue("--carousel-items-per-screen"));
 
-	//     const screenCount = Math.ceil(items.length / itemsPerScreen);
-	//     console.log("screenCount: " + screenCount);
+	    const screenCount = Math.ceil(items.length / itemsPerScreen);
 
-	//     if (trackIndex > 0)
-	//     {
-	//         buttonPrev.removeAttribute("hidden");
-	//         // buttonPrev.hidden = false;
-	//         // buttonPrev.style.display = "flex";
-	//     }
-	//     else
-	//     {
-	//         buttonPrev.setAttribute("hidden", "");
-	//         // buttonPrev.hidden = true;
-	//         // buttonPrev.style.display = "none";
-	//     }
+	    if (trackIndex > 0)
+	    {
+	        buttonPrev.style.display = "flex";
+			container.style.paddingLeft = 0;
+	    }
+	    else
+	    {
+	        buttonPrev.style.display = "none";
+			container.style.paddingLeft = buttonWidth + "%";
+	    }
 
-	//     if (trackIndex < screenCount - 1)
-	//     {
-	//         buttonNext.removeAttribute("hidden");
-	//         // buttonNext.hidden = false;
-	//         // buttonNext.style.display = "flex";
-	//     }
-	//     else
-	//     {
-	//         buttonNext.setAttribute("hidden", "");
-	//         // buttonNext.hidden = true;
-	//         // buttonNext.style.display = "none";
-	//     }
-	// }
+	    if (trackIndex < screenCount - 1)
+	    {
+	        buttonNext.style.display = "flex";
+			container.style.paddingRight = 0;
+		}
+	    else
+	    {
+	        buttonNext.style.display = "none";
+			container.style.paddingRight = buttonWidth + "%";
+		}
+	}
+
+ 
+
+
+
+	setIndicators();
+
+	function setIndicators()
+    {
+        indicatorContainer.innerHTML = "";
+
+	    const trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
+	    const itemsPerScreen = parseInt(getComputedStyle(track).getPropertyValue("--carousel-items-per-screen"));
+        const screenCount = Math.ceil(items.length / itemsPerScreen);
+
+        // if (trackIndex > screenCount - 1)
+        // {
+        //     trackIndex = screenCount - 1;
+        //     track.style.setProperty("--track-index", trackIndex);
+        // }
+
+		if (screenCount > 1)
+		{
+			for (let i = 0; i < screenCount; i++)
+			{
+				let indicator = document.createElement("div");
+				indicator.classList.add("carousel-indicator");
+				if (i === trackIndex)
+				{
+					indicator.classList.add("selected");
+				}
+
+				indicator.addEventListener("click", () => 
+				{ 
+					const index = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
+					indicatorContainer.children[index].classList.remove("selected");
+
+					indicatorContainer.children[i].classList.add("selected");
+					track.style.setProperty("--carousel-track-index", i);
+
+					setButtonsVisibility();
+				});
+
+				indicatorContainer.append(indicator);
+			}
+		}
+        setButtonsVisibility();
+    }
 });

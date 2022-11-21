@@ -21,6 +21,8 @@
 
     <?php require("carousel_2.php"); ?>
 
+    <?php require("carousel_3.php"); ?>
+
 
 
 </body>

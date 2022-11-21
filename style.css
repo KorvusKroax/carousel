@@ -1,6 +1,22 @@
 :root {
     --carousel-button-width: 5%;
-    --carousel-track-window-margin: 3%;
+    --carousel-button-background: transparent;
+    --carousel-button-color: currentColor;
+    --carousel-button-background-hover: darkslategray;
+    --carousel-button-color-hover: white;
+
+    --carousel-track-holder-fadeWidth: 5%;
+    --carousel-track-holder-fadeMask:
+        linear-gradient(to right,
+            transparent,
+            black calc(var(--carousel-track-holder-fadeWidth) * 1.5),
+            black calc(100% - var(--carousel-track-holder-fadeWidth) * 1.5),
+            transparent);
+
+    --carousel-indicator-size: 1%;
+    --carousel-indicator-color: rgb(0, 0, 0, .25);
+    --carousel-indicator-color-hover: rgb(0, 0, 0, .5);
+    --carousel-indicator-color-selected: darkslategray;
 }
 
 
@@ -36,23 +52,28 @@ body {
     justify-content: center;
 }
 
-.carousel-track-window {
+.carousel-track-holder {
     width: 100%;
 
     overflow: hidden;
+}
+
+.mask {
+    -webkit-mask-image: var(--carousel-track-holder-fadeMask);
+    mask-image: var(--carousel-track-holder-fadeMask);
 }
 
 .carousel-track {
     --carousel-items-per-screen: 4;
     --carousel-track-index: 0;
 
-    width: calc(100% - var(--carousel-track-window-margin) * 2);
+    width: calc(100% - var(--carousel-track-holder-fadeWidth) * 2);
     margin-inline: auto;
 
     display: flex;
 
     transform: translateX(calc(-100% * var(--carousel-track-index)));
-    transition: transform .25s ease-out;
+    transition: transform .5s ease-in-out;
 }
 
 
@@ -64,7 +85,7 @@ body {
 }
 
 .carousel-card {
-    padding: .5em;
+    padding: .5vw;
 
     user-select: none;
 }
@@ -82,11 +103,10 @@ body {
 
 
 
-
-
 .carousel-modal {
-    min-width: 200px;
     padding: 1em;
+
+    overflow-x: hidden;
 
     border: none;
     box-shadow: 0 0 3rem rgb(0, 0, 0, .5);
@@ -101,14 +121,6 @@ body {
 .carousel-modal-image {
     display: block;
     user-select: none;
-}
-
-.carousel-modal-title {
-    background-color: red;
-}
-
-.carousel-modal-text {
-    background-color: cyan;
 }
 
 .carousel-modal-button {
@@ -133,10 +145,10 @@ body {
 .carousel-button {
     width: var(--carousel-button-width);
 
-    background-color: darkslategray;
-    color: white;
+    background-color: var(--carousel-button-background);
+    color: var(--carousel-button-color);
 
-    font-size: 3vw;
+    font-size: 4vw;
 
     display: flex;
     justify-content: center;
@@ -148,13 +160,39 @@ body {
 }
 
 .carousel-button:hover {
-    background-color: lightslategray;
+    background-color: var(--carousel-button-background-hover);
+    color: var(--carousel-button-color-hover);
 }
 
 
 
 
 
-/* .carousel-indicator-container {} */
+.carousel-indicator-container {
+    display: flex;
+    justify-content: center;
+    /* gap: calc(var(--carousel-indicator-size) * 1.25); */
+}
 
-/* .carousel-indicator {} */
+
+
+.carousel-indicator {
+    width: var(--carousel-indicator-size);
+    aspect-ratio: 1 / 1;
+
+    margin: var(--carousel-indicator-size);
+
+    background-color: var(--carousel-indicator-color);
+    
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.carousel-indicator:hover {
+    background-color: var(--carousel-indicator-color-hover);
+    outline: 3px solid black;
+}
+
+.carousel-indicator.selected {
+    background-color: var(--carousel-indicator-color-selected);
+}

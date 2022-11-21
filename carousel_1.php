@@ -4,7 +4,7 @@
 
         <button class="carousel-button prev">&#10092;</button>
 
-        <div class="carousel-track-window">
+        <div class="carousel-track-holder mask">
             <div class="carousel-track">
 
 
@@ -75,6 +75,8 @@
 
     </div>
 
-    <div class="carousel-indicator-holder"></div>
+    <div class="carousel-indicator-container">
+
+    </div>
 
 </div>
