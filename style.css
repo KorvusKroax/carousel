@@ -14,7 +14,7 @@
 }
 
 body {
-    width: 80vw;
+    max-width: min(100vw - 1rem, 80rem);
     margin: 0 auto;
 }
 
@@ -86,7 +86,7 @@ body {
 
 .carousel-modal {
     min-width: 200px;
-    padding: 1rem;
+    padding: 1em;
 
     border: none;
     box-shadow: 0 0 3rem rgb(0, 0, 0, .5);
@@ -136,7 +136,7 @@ body {
     background-color: darkslategray;
     color: white;
 
-    font-size: 3em;
+    font-size: 3vw;
 
     display: flex;
     justify-content: center;
