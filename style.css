@@ -87,6 +87,7 @@ body {
 .carousel-card {
     padding: .5vw;
 
+    cursor: pointer;
     user-select: none;
 }
 
@@ -129,6 +130,7 @@ body {
     background-color: darkslategray;
     color: white;
 
+    cursor: pointer;
     user-select: none;
     outline: none;
     border: none;
@@ -154,6 +156,7 @@ body {
     justify-content: center;
     align-items: center;
 
+    cursor: pointer;
     user-select: none;
     outline: none;
     border: none;
@@ -190,7 +193,6 @@ body {
 
 .carousel-indicator:hover {
     background-color: var(--carousel-indicator-color-hover);
-    outline: 3px solid black;
 }
 
 .carousel-indicator.selected {

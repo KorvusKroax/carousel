@@ -2,14 +2,21 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 {
 	const container = carousel.querySelector(".carousel-container");
 	const track = carousel.querySelector(".carousel-track");
+	const items = track.querySelectorAll(".carousel-item");
+	const buttonPrev = carousel.querySelector(".carousel-button.prev");
+	const buttonNext = carousel.querySelector(".carousel-button.next");
 	const indicatorContainer = carousel.querySelector(".carousel-indicator-container");
 
-	const items = track.querySelectorAll(".carousel-item");
+
+
+
+
 	items.forEach((item) => 
     {
 		const card = item.querySelector(".carousel-card");
 		const modal = item.querySelector(".carousel-modal");
 		const modalImage = modal.querySelector(".carousel-modal-image");
+        const modalButton = modal.querySelector(".carousel-modal-button");
 
 		card.addEventListener("click", () => 
         {
@@ -34,8 +41,6 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 
 			const maxImageWidth = modal.clientWidth - paddingHorizontal;
 			const maxImageHeight = modal.clientHeight - paddingVertical;
-
-
 
 			let imageWidth = originalImageWidth;
 			let imageHeight = originalImageHeight;
@@ -62,72 +67,10 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 			}
 		}
         
-        const modalButton = modal.querySelector(".carousel-modal-button");
 		modalButton.addEventListener("click", () => { modal.close(); });
 
 		window.addEventListener("resize", () => { if (modal.open) setSize(); });
 	});
-
-
-
-
-
-	const buttonPrev = carousel.querySelector(".carousel-button.prev");
-	buttonPrev.addEventListener("click", () => {
-		paging(-1);
-	});
-
-	const buttonNext = carousel.querySelector(".carousel-button.next");
-	buttonNext.addEventListener("click", () => 
-	{
-		paging(+1);
-	});
-
-	function paging(direction) 
-	{
-		let trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
-		trackIndex += direction;
-		track.style.setProperty("--carousel-track-index", trackIndex);
-		
-		indicatorContainer.children[trackIndex - direction].classList.remove("selected");
-		indicatorContainer.children[trackIndex].classList.add("selected");
-
-		setButtonsVisibility();
-	}
-
-	setButtonsVisibility();
-
-	function setButtonsVisibility()
-	{
-	    const buttonWidth = parseInt(getComputedStyle(track).getPropertyValue("--carousel-button-width"));
-
-	    const trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
-	    const itemsPerScreen = parseInt(getComputedStyle(track).getPropertyValue("--carousel-items-per-screen"));
-
-	    const screenCount = Math.ceil(items.length / itemsPerScreen);
-
-	    if (trackIndex > 0)
-	    {
-	        buttonPrev.style.display = "flex";
-			container.style.paddingLeft = 0;
-	    }
-	    else
-	    {
-	        buttonPrev.style.display = "none";
-			container.style.paddingLeft = buttonWidth + "%";
-	    }
-
-	    if (trackIndex < screenCount - 1)
-	    {
-	        buttonNext.style.display = "flex";
-			container.style.paddingRight = 0;
-		}
-	    else
-	    {
-	        buttonNext.style.display = "none";
-			container.style.paddingRight = buttonWidth + "%";
-		}
-	}
 
  
 
@@ -176,6 +119,115 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 		}
         setButtonsVisibility();
     }
+
+
+
+
+
+	buttonPrev.addEventListener("click", () => { paging(-1); });
+
+	buttonNext.addEventListener("click", () => { paging(+1); });
+
+	function paging(direction) 
+	{
+		let trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
+		trackIndex += direction;
+		track.style.setProperty("--carousel-track-index", trackIndex);
+		
+		indicatorContainer.children[trackIndex - direction].classList.remove("selected");
+		indicatorContainer.children[trackIndex].classList.add("selected");
+
+		setButtonsVisibility();
+	}
+
+
+
+
+
+	let isDragging = false;
+
+	container.addEventListener("dragstart", (event) => { event.preventDefault(); });
+	
+	container.addEventListener("touchstart", touchStart);
+	container.addEventListener("touchmove", touchMove);
+	container.addEventListener("touchend", touchEnd);
+
+	container.addEventListener("mousedown", touchStart);
+	container.addEventListener("mousemove", touchMove);
+	container.addEventListener("mouseup", touchEnd);
+	container.addEventListener("mouseleave", touchEnd);
+
+	function touchStart()
+	{
+		if (!isDragging)
+		{
+			console.log("start");
+			isDragging = true;
+		}
+	}
+
+	function touchMove()
+	{
+		if (isDragging)
+		{
+			console.log("move");
+		}
+	}
+
+	function touchEnd()
+	{
+		if (isDragging)
+		{
+			console.log("end");
+			isDragging = false;
+		}
+	}
+
+	// disable context menu
+	window.oncontextmenu = (event) =>
+	{
+		event.preventDefault();
+		event.stopPropagation();
+		return false;
+	}
+
+
+
+
+
+	setButtonsVisibility();
+
+	function setButtonsVisibility()
+	{
+	    const buttonWidth = parseInt(getComputedStyle(track).getPropertyValue("--carousel-button-width"));
+
+	    const trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
+	    const itemsPerScreen = parseInt(getComputedStyle(track).getPropertyValue("--carousel-items-per-screen"));
+
+	    const screenCount = Math.ceil(items.length / itemsPerScreen);
+
+	    if (trackIndex > 0)
+	    {
+	        buttonPrev.style.display = "flex";
+			container.style.paddingLeft = 0;
+	    }
+	    else
+	    {
+	        buttonPrev.style.display = "none";
+			container.style.paddingLeft = buttonWidth + "%";
+	    }
+
+	    if (trackIndex < screenCount - 1)
+	    {
+	        buttonNext.style.display = "flex";
+			container.style.paddingRight = 0;
+		}
+	    else
+	    {
+	        buttonNext.style.display = "none";
+			container.style.paddingRight = buttonWidth + "%";
+		}
+	}
 });
 
 
