@@ -177,3 +177,17 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
         setButtonsVisibility();
     }
 });
+
+
+
+
+
+/* https://www.youtube.com/watch?v=yq4BeRtUHbk&t=11s&ab_channel=WebDevSimplified */
+
+/* https://pqina.nl/blog/fade-out-overflow-using-css-mask-image/ */
+
+// https://www.youtube.com/watch?v=yq4BeRtUHbk&t=11s&ab_channel=WebDevSimplified
+
+// https://www.youtube.com/watch?v=XtFlpgaLbZ4&ab_channel=dcode
+
+// https://www.youtube.com/watch?v=5bxFSOA5JYo&t=6s&ab_channel=TraversyMedia
