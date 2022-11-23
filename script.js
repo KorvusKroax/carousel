@@ -14,6 +14,7 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 	items.forEach((item) => 
     {
 		const card = item.querySelector(".carousel-card");
+
 		const modal = item.querySelector(".carousel-modal");
 		const modalImage = modal.querySelector(".carousel-modal-image");
         const modalButton = modal.querySelector(".carousel-modal-button");
@@ -82,15 +83,15 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
     {
         indicatorContainer.innerHTML = "";
 
-	    const trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
+	    let trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
 	    const itemsPerScreen = parseInt(getComputedStyle(track).getPropertyValue("--carousel-items-per-screen"));
         const screenCount = Math.ceil(items.length / itemsPerScreen);
 
-        // if (trackIndex > screenCount - 1)
-        // {
-        //     trackIndex = screenCount - 1;
-        //     track.style.setProperty("--track-index", trackIndex);
-        // }
+        if (trackIndex > screenCount - 1)
+        {
+            trackIndex = screenCount - 1;
+            track.style.setProperty("--carousel-track-index", trackIndex);
+        }
 
 		if (screenCount > 1)
 		{
@@ -119,6 +120,8 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 		}
         setButtonsVisibility();
     }
+
+	window.addEventListener("resize", () => { setIndicators(); });
 
 
 

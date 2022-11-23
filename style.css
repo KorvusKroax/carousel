@@ -4,6 +4,7 @@
     --carousel-button-color: currentColor;
     --carousel-button-background-hover: darkslategray;
     --carousel-button-color-hover: white;
+    --carousel-button-font-size: 3rem;
 
     --carousel-track-holder-fadeWidth: 5%;
     --carousel-track-holder-fadeMask:
@@ -29,18 +30,13 @@
     box-sizing: border-box;
 }
 
-body {
-    max-width: min(100vw - 1rem, 80rem);
-    margin: 0 auto;
-}
-
 
 
 
 
 .carousel {
-    width: 100%;
-    margin: 3em auto;
+    max-width: min(100vw - 1rem, 80rem);
+    margin: 10em auto;
 }
 
 
@@ -73,7 +69,7 @@ body {
     display: flex;
 
     transform: translateX(calc(-100% * var(--carousel-track-index)));
-    transition: transform .5s ease-in-out;
+    transition: transform .25s ease-in-out;
 }
 
 
@@ -150,7 +146,7 @@ body {
     background-color: var(--carousel-button-background);
     color: var(--carousel-button-color);
 
-    font-size: 3vw;
+    font-size: var(--carousel-button-font-size);
 
     display: flex;
     justify-content: center;
@@ -202,23 +198,38 @@ body {
 
 
 @media (max-width: 1000px) {
+    :root {
+        --carousel-button-width: 7%;
+        --carousel-track-holder-fadeWidth: 6%;
+    }
+
     .carousel-track {
         --carousel-items-per-screen: 3;
-    }    
+    }
 }
 
 
 
 @media (max-width: 550px) {
+    :root {
+        --carousel-button-width: 10%;
+        --carousel-track-holder-fadeWidth: 8%;
+    }
+
     .carousel-track {
         --carousel-items-per-screen: 2;
-    }    
+    }
 }
 
 
 
 @media (max-width: 300px) {
+    :root {
+        --carousel-button-width: 15%;
+        --carousel-track-holder-fadeWidth: 10%;
+    }
+
     .carousel-track {
         --carousel-items-per-screen: 1;
-    }    
+    }
 }
