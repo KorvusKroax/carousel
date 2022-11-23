@@ -158,27 +158,8 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 
 	    const screenCount = Math.ceil(items.length / itemsPerScreen);
 
-	    if (trackIndex > 0)
-	    {
-	        buttonPrev.style.display = "flex";
-			container.style.paddingLeft = 0;
-	    }
-	    else
-	    {
-	        buttonPrev.style.display = "none";
-			container.style.paddingLeft = buttonWidth + "%";
-	    }
-
-	    if (trackIndex < screenCount - 1)
-	    {
-	        buttonNext.style.display = "flex";
-			container.style.paddingRight = 0;
-		}
-	    else
-	    {
-	        buttonNext.style.display = "none";
-			container.style.paddingRight = buttonWidth + "%";
-		}
+		buttonPrev.style.visibility = (trackIndex > 0) ? "visible" : "hidden";
+		buttonNext.style.visibility = (trackIndex < screenCount - 1) ? "visible" : "hidden";
 	}
 
 
