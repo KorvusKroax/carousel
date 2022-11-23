@@ -150,7 +150,7 @@ body {
     background-color: var(--carousel-button-background);
     color: var(--carousel-button-color);
 
-    font-size: 4vw;
+    font-size: 3vw;
 
     display: flex;
     justify-content: center;
@@ -174,7 +174,7 @@ body {
 .carousel-indicator-container {
     display: flex;
     justify-content: center;
-    /* gap: calc(var(--carousel-indicator-size) * 1.25); */
+    gap: calc(var(--carousel-indicator-size) * 1.25);
 }
 
 
@@ -182,8 +182,6 @@ body {
 .carousel-indicator {
     width: var(--carousel-indicator-size);
     aspect-ratio: 1 / 1;
-
-    margin: var(--carousel-indicator-size);
 
     background-color: var(--carousel-indicator-color);
     
@@ -197,4 +195,30 @@ body {
 
 .carousel-indicator.selected {
     background-color: var(--carousel-indicator-color-selected);
+}
+
+
+
+
+
+@media (max-width: 1000px) {
+    .carousel-track {
+        --carousel-items-per-screen: 3;
+    }    
+}
+
+
+
+@media (max-width: 550px) {
+    .carousel-track {
+        --carousel-items-per-screen: 2;
+    }    
+}
+
+
+
+@media (max-width: 300px) {
+    .carousel-track {
+        --carousel-items-per-screen: 1;
+    }    
 }

@@ -144,57 +144,6 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 
 
 
-	let isDragging = false;
-
-	container.addEventListener("dragstart", (event) => { event.preventDefault(); });
-	
-	container.addEventListener("touchstart", touchStart);
-	container.addEventListener("touchmove", touchMove);
-	container.addEventListener("touchend", touchEnd);
-
-	container.addEventListener("mousedown", touchStart);
-	container.addEventListener("mousemove", touchMove);
-	container.addEventListener("mouseup", touchEnd);
-	container.addEventListener("mouseleave", touchEnd);
-
-	function touchStart()
-	{
-		if (!isDragging)
-		{
-			console.log("start");
-			isDragging = true;
-		}
-	}
-
-	function touchMove()
-	{
-		if (isDragging)
-		{
-			console.log("move");
-		}
-	}
-
-	function touchEnd()
-	{
-		if (isDragging)
-		{
-			console.log("end");
-			isDragging = false;
-		}
-	}
-
-	// disable context menu
-	window.oncontextmenu = (event) =>
-	{
-		event.preventDefault();
-		event.stopPropagation();
-		return false;
-	}
-
-
-
-
-
 	setButtonsVisibility();
 
 	function setButtonsVisibility()
@@ -228,6 +177,76 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 			container.style.paddingRight = buttonWidth + "%";
 		}
 	}
+
+
+
+
+
+
+
+	// let isDragging = false;
+	// let startPos;
+	// let currPos;
+
+	// track.addEventListener("dragstart", (event) => { event.preventDefault(); });
+	
+	// track.addEventListener("touchstart", touchStart);
+	// track.addEventListener("touchmove", touchMove);
+	// track.addEventListener("touchend", touchEnd);
+
+	// track.addEventListener("mousedown", touchStart);
+	// track.addEventListener("mousemove", touchMove);
+	// track.addEventListener("mouseup", touchEnd);
+	// track.addEventListener("mouseleave", touchEnd);
+
+	// function touchStart()
+	// {
+	// 	console.log("start");
+
+	// 	isDragging = true;
+	// 	startPos = getPosX(event);
+	// }
+
+	// function touchMove(event)
+	// {
+	// 	if (isDragging)
+	// 	{
+	// 		currPos = getPosX(event);
+
+	// 		let deltaPos = startPos - currPos;
+	// 		let movement = deltaPos / track.offsetWidth; // track.offsetWidth = 100%
+			
+	// 		console.log("move by: " + (movement * 100) + "%");
+
+	// 		let trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
+	// 		trackIndex += movement;
+	// 		track.style.setProperty("--carousel-track-index", trackIndex);
+	// 	}
+	// }
+
+	// function touchEnd()
+	// {
+	// 	if (isDragging)
+	// 	{
+	// 		console.log("end");
+
+	// 		isDragging = false;
+	// 	}
+	// }
+
+	// function getPosX(event)
+	// {
+	// 	return event.type.includes("mouse") ? event.pageX : event.touches[0].clinetX;
+	// }
+
+	// // disable context menu
+	// window.oncontextmenu = (event) =>
+	// {
+	// 	event.preventDefault();
+	// 	event.stopPropagation();
+	// 	return false;
+	// }
+
 });
 
 
@@ -243,3 +262,5 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 // https://www.youtube.com/watch?v=XtFlpgaLbZ4&ab_channel=dcode
 
 // https://www.youtube.com/watch?v=5bxFSOA5JYo&t=6s&ab_channel=TraversyMedia
+
+// https://css-tricks.com/using-requestanimationframe/
