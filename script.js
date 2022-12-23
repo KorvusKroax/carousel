@@ -132,11 +132,10 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 
 	function paging(direction) 
 	{
-		let trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
+		const trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index")) + direction;
 		const itemsPerScreen = parseInt(getComputedStyle(track).getPropertyValue("--carousel-items-per-screen"));
 	    const screenCount = Math.ceil(items.length / itemsPerScreen);
 
-		trackIndex += direction;
 		if (trackIndex >= 0 && trackIndex < screenCount)
 		{
 			track.style.setProperty("--carousel-track-index", trackIndex);
