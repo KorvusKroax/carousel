@@ -133,13 +133,19 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 	function paging(direction) 
 	{
 		let trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
-		trackIndex += direction;
-		track.style.setProperty("--carousel-track-index", trackIndex);
-		
-		indicatorContainer.children[trackIndex - direction].classList.remove("selected");
-		indicatorContainer.children[trackIndex].classList.add("selected");
+		const itemsPerScreen = parseInt(getComputedStyle(track).getPropertyValue("--carousel-items-per-screen"));
+	    const screenCount = Math.ceil(items.length / itemsPerScreen);
 
-		setButtonsVisibility();
+		trackIndex += direction;
+		if (trackIndex >= 0 && trackIndex < screenCount)
+		{
+			track.style.setProperty("--carousel-track-index", trackIndex);
+			
+			indicatorContainer.children[trackIndex - direction].classList.remove("selected");
+			indicatorContainer.children[trackIndex].classList.add("selected");
+
+			setButtonsVisibility();
+		}
 	}
 
 
@@ -150,11 +156,8 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 
 	function setButtonsVisibility()
 	{
-	    const buttonWidth = parseInt(getComputedStyle(track).getPropertyValue("--carousel-button-width"));
-
 	    const trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
 	    const itemsPerScreen = parseInt(getComputedStyle(track).getPropertyValue("--carousel-items-per-screen"));
-
 	    const screenCount = Math.ceil(items.length / itemsPerScreen);
 
 		buttonPrev.style.visibility = (trackIndex > 0) ? "visible" : "hidden";
@@ -167,80 +170,78 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 
 
 
-	// let isDragging = false;
-	// let startPos;
-	// let currPos;
 
-	// track.addEventListener("dragstart", (event) => { event.preventDefault(); });
+
+
+	let isDragging = false;
+	let startPos;
+	let currPos;
+
+
+
+	track.addEventListener("dragstart", (event) => { event.preventDefault(); });
 	
-	// track.addEventListener("touchstart", touchStart);
-	// track.addEventListener("touchmove", touchMove);
-	// track.addEventListener("touchend", touchEnd);
+	track.addEventListener("touchstart", touchStart);
+	track.addEventListener("touchmove", touchMove);
+	track.addEventListener("touchend", touchEnd);
 
-	// track.addEventListener("mousedown", touchStart);
-	// track.addEventListener("mousemove", touchMove);
-	// track.addEventListener("mouseup", touchEnd);
-	// track.addEventListener("mouseleave", touchEnd);
+	track.addEventListener("mousedown", touchStart);
+	track.addEventListener("mousemove", touchMove);
+	track.addEventListener("mouseup", touchEnd);
+	track.addEventListener("mouseleave", touchEnd);
 
-	// function touchStart()
-	// {
-	// 	console.log("start");
+	// disable context menu
+	window.oncontextmenu = (event) => 
+	{
+		event.preventDefault();
+		event.stopPropagation();
+		return false;
+	}
 
-	// 	isDragging = true;
-	// 	startPos = getPosX(event);
-	// }
 
-	// function touchMove(event)
-	// {
-	// 	if (isDragging)
-	// 	{
-	// 		currPos = getPosX(event);
 
-	// 		let deltaPos = startPos - currPos;
-	// 		let movement = deltaPos / track.offsetWidth; // track.offsetWidth = 100%
+	function touchStart(event)
+	{
+		startPos = getPosX(event);
+		isDragging = true;
+		
+		console.log("start at:", startPos);
+	}
+
+	function touchMove(event)
+	{
+		if (isDragging)
+		{
+			currPos = getPosX(event);
 			
-	// 		console.log("move by: " + (movement * 100) + "%");
+			paging(Math.sign(startPos - currPos));
+			touchEnd();
+		}
+	}
 
-	// 		let trackIndex = parseInt(getComputedStyle(track).getPropertyValue("--carousel-track-index"));
-	// 		trackIndex += movement;
-	// 		track.style.setProperty("--carousel-track-index", trackIndex);
-	// 	}
-	// }
+	function touchEnd()
+	{
+		if (isDragging)
+		{
+			isDragging = false;
 
-	// function touchEnd()
-	// {
-	// 	if (isDragging)
-	// 	{
-	// 		console.log("end");
+			console.log("end");
+		}
+	}
 
-	// 		isDragging = false;
-	// 	}
-	// }
-
-	// function getPosX(event)
-	// {
-	// 	return event.type.includes("mouse") ? event.pageX : event.touches[0].clinetX;
-	// }
-
-	// // disable context menu
-	// window.oncontextmenu = (event) =>
-	// {
-	// 	event.preventDefault();
-	// 	event.stopPropagation();
-	// 	return false;
-	// }
-
+	function getPosX(event)
+	{
+		return event.type.includes("mouse") ? event.pageX : event.touches[0].clientX;
+	}
 });
 
 
 
 
 
-/* https://www.youtube.com/watch?v=yq4BeRtUHbk&t=11s&ab_channel=WebDevSimplified */
-
-/* https://pqina.nl/blog/fade-out-overflow-using-css-mask-image/ */
-
 // https://www.youtube.com/watch?v=yq4BeRtUHbk&t=11s&ab_channel=WebDevSimplified
+
+// https://pqina.nl/blog/fade-out-overflow-using-css-mask-image/
 
 // https://www.youtube.com/watch?v=XtFlpgaLbZ4&ab_channel=dcode
 
