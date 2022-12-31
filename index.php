@@ -15,15 +15,11 @@
 
 <body>
 
+    <?php require("row_1.php"); ?>
 
+    <?php require("row_2.php"); ?>
 
-    <?php require("carousel_1.php"); ?>
-
-    <?php require("carousel_2.php"); ?>
-
-    <?php require("carousel_3.php"); ?>
-
-
+    <?php require("row_3.php"); ?>
 
 </body>
 

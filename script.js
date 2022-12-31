@@ -21,7 +21,7 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
         const modalNextButton = modal.querySelector(".carousel-modal-button.next");
 
 
-		
+
 		card.addEventListener("click", () => 
         {
 			modal.showModal();
@@ -45,6 +45,8 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
             items[(index + 1) % items.length].querySelector(".carousel-card").click();
         });
 
+		window.addEventListener("resize", () => { if (modal.open) setModalSize(); });
+	
 
 
 		function setModalSize() 
@@ -144,6 +146,8 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
         setButtonsVisibility();
     }
 
+	window.addEventListener("resize", () => { setIndicators(); });
+
 
 
 
@@ -184,20 +188,6 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 		buttonPrev.style.visibility = (trackIndex > 0) ? "visible" : "hidden";
 		buttonNext.style.visibility = (trackIndex < screenCount - 1) ? "visible" : "hidden";
 	}
-
-
-
-
-
-	window.addEventListener("resize", () => 
-	{ 
-		if (modal.open)
-		{
-			setModalSize();
-		}
-
-		setIndicators(); 
-	});
 
 
 
