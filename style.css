@@ -1,23 +1,7 @@
 :root {
     --carousel-button-width: 5%;
-    --carousel-button-background: transparent;
-    --carousel-button-color: currentColor;
-    --carousel-button-background-hover: darkslategray;
-    --carousel-button-color-hover: white;
-    --carousel-button-font-size: 3rem;
-
     --carousel-track-holder-fadeWidth: 5%;
-    --carousel-track-holder-fadeMask:
-        linear-gradient(to right,
-            transparent,
-            black calc(var(--carousel-track-holder-fadeWidth) * 1.5),
-            black calc(100% - var(--carousel-track-holder-fadeWidth) * 1.5),
-            transparent);
-
     --carousel-indicator-size: 1%;
-    --carousel-indicator-color: rgb(0, 0, 0, .25);
-    --carousel-indicator-color-hover: rgb(0, 0, 0, .5);
-    --carousel-indicator-color-selected: darkslategray;
 }
 
 
@@ -55,6 +39,12 @@
 }
 
 .mask {
+    --carousel-track-holder-fadeMask: linear-gradient(to right,
+        transparent,
+        black calc(var(--carousel-track-holder-fadeWidth) * 1.5),
+        black calc(100% - var(--carousel-track-holder-fadeWidth) * 1.5),
+        transparent);
+
     -webkit-mask-image: var(--carousel-track-holder-fadeMask);
     mask-image: var(--carousel-track-holder-fadeMask);
 }
@@ -191,10 +181,10 @@
 .carousel-button {
     width: var(--carousel-button-width);
 
-    background-color: var(--carousel-button-background);
-    color: var(--carousel-button-color);
+    background-color: transparent;
+    color: #333;
 
-    font-size: var(--carousel-button-font-size);
+    font-size: 3em;
 
     display: flex;
     justify-content: center;
@@ -207,8 +197,8 @@
 }
 
 .carousel-button:hover {
-    background-color: var(--carousel-button-background-hover);
-    color: var(--carousel-button-color-hover);
+    background-color: darkslategray;
+    color: white;
 }
 
 
@@ -227,18 +217,18 @@
     width: var(--carousel-indicator-size);
     aspect-ratio: 1 / 1;
 
-    background-color: var(--carousel-indicator-color);
+    background-color: rgb(0, 0, 0, .25);
     
     border-radius: 50%;
     cursor: pointer;
 }
 
 .carousel-indicator:hover {
-    background-color: var(--carousel-indicator-color-hover);
+    background-color: rgb(0, 0, 0, .5);
 }
 
 .carousel-indicator.selected {
-    background-color: var(--carousel-indicator-color-selected);
+    background-color: darkslategray;
 }
 
 
