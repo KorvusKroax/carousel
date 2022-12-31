@@ -20,6 +20,8 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
         const modalPrevButton = modal.querySelector(".carousel-modal-button.prev");
         const modalNextButton = modal.querySelector(".carousel-modal-button.next");
 
+
+		
 		card.addEventListener("click", () => 
         {
 			modal.showModal();
@@ -185,7 +187,7 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 
 
 
-	
+
 
 	window.addEventListener("resize", () => 
 	{ 
