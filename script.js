@@ -10,19 +10,42 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 
 
 
-	items.forEach((item) => 
+	items.forEach((item, index) => 
     {
 		const card = item.querySelector(".carousel-card");
 
 		const modal = item.querySelector(".carousel-modal");
 		const modalImage = modal.querySelector(".carousel-modal-image");
-        const modalButton = modal.querySelector(".carousel-modal-button");
+        const modalCloseButton = modal.querySelector(".carousel-modal-button.close");
+        const modalPrevButton = modal.querySelector(".carousel-modal-button.prev");
+        const modalNextButton = modal.querySelector(".carousel-modal-button.next");
 
 		card.addEventListener("click", () => 
         {
 			modal.showModal();
 			setSize();
 		});
+
+		modalCloseButton.addEventListener("click", () => 
+		{ 
+			closeModal(); 
+		});
+
+        modalPrevButton.addEventListener("click", () => 
+        {
+            closeModal();
+            items[(index - 1 + items.length) % items.length].querySelector(".carousel-card").click();
+        });
+
+        modalNextButton.addEventListener("click", () => 
+        {
+            closeModal();
+            items[(index + 1) % items.length].querySelector(".carousel-card").click();
+        });
+
+		window.addEventListener("resize", () => { if (modal.open) setSize(); });
+
+
 
 		function setSize() 
         {
@@ -67,9 +90,10 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 			}
 		}
         
-		modalButton.addEventListener("click", () => { modal.close(); });
-
-		window.addEventListener("resize", () => { if (modal.open) setSize(); });
+        function closeModal()
+        {
+            modal.close();
+        }
 	});
 
  
@@ -171,67 +195,66 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 
 
 
-
-	let isDragging = false;
-	let startPos;
-	let currPos;
-
+	// let isDragging = false;
+	// let startPos;
+	// let currPos;
 
 
-	track.addEventListener("dragstart", (event) => { event.preventDefault(); });
+
+	// track.addEventListener("dragstart", (event) => { event.preventDefault(); });
 	
-	track.addEventListener("touchstart", touchStart);
-	track.addEventListener("touchmove", touchMove);
-	track.addEventListener("touchend", touchEnd);
+	// track.addEventListener("touchstart", touchStart);
+	// track.addEventListener("touchmove", touchMove);
+	// track.addEventListener("touchend", touchEnd);
 
-	track.addEventListener("mousedown", touchStart);
-	track.addEventListener("mousemove", touchMove);
-	track.addEventListener("mouseup", touchEnd);
-	track.addEventListener("mouseleave", touchEnd);
+	// track.addEventListener("mousedown", touchStart);
+	// track.addEventListener("mousemove", touchMove);
+	// track.addEventListener("mouseup", touchEnd);
+	// track.addEventListener("mouseleave", touchEnd);
 
-	// disable context menu
-	window.oncontextmenu = (event) => 
-	{
-		event.preventDefault();
-		event.stopPropagation();
-		return false;
-	}
+	// // disable context menu
+	// window.oncontextmenu = (event) => 
+	// {
+	// 	event.preventDefault();
+	// 	event.stopPropagation();
+	// 	return false;
+	// }
 
 
 
-	function touchStart(event)
-	{
-		startPos = getPosX(event);
-		isDragging = true;
+	// function touchStart(event)
+	// {
+	// 	startPos = getPosX(event);
+	// 	isDragging = true;
 		
-		console.log("start at:", startPos);
-	}
+	// 	console.log("start at:", startPos);
+	// }
 
-	function touchMove(event)
-	{
-		if (isDragging)
-		{
-			currPos = getPosX(event);
+	// function touchMove(event)
+	// {
+	// 	if (isDragging)
+	// 	{
+	// 		currPos = getPosX(event);
 			
-			paging(Math.sign(startPos - currPos));
-			touchEnd();
-		}
-	}
+	// 		paging(Math.sign(startPos - currPos));
+	// 		touchEnd();
+	// 	}
+	// }
 
-	function touchEnd()
-	{
-		if (isDragging)
-		{
-			isDragging = false;
+	// function touchEnd()
+	// {
+	// 	if (isDragging)
+	// 	{
+	// 		isDragging = false;
 
-			console.log("end");
-		}
-	}
+	// 		console.log("end");
+	// 	}
+	// }
 
-	function getPosX(event)
-	{
-		return event.type.includes("mouse") ? event.pageX : event.touches[0].clientX;
-	}
+	// function getPosX(event)
+	// {
+	// 	return event.type.includes("mouse") ? event.pageX : event.touches[0].clientX;
+	// }
 });
 
 

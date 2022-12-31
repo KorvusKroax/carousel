@@ -80,6 +80,12 @@
     flex: 0 0 calc(100% / var(--carousel-items-per-screen));
 }
 
+
+
+
+
+
+
 .carousel-card {
     padding: .5vw;
 
@@ -100,31 +106,40 @@
 
 
 
+
+
+
+
+
 .carousel-modal {
     padding: 1em;
 
-    overflow-x: hidden;
+    overflow: hidden;
 
     border: none;
-    box-shadow: 0 0 3rem rgb(0, 0, 0, .5);
+    box-shadow: 0 0 2rem rgb(0, 0, 0, .75);
 }
 
 .carousel-modal::backdrop {
-    background-color: rgb(0, 0, 0, .5);
+    background-color: rgb(0, 0, 0, .75);
 }
 
 
-
-.carousel-modal-image {
-    display: block;
-    user-select: none;
-}
 
 .carousel-modal-button {
-    padding: .5em 2em;
+    width: 2em;
+    aspect-ratio: 1 / 1;
+    position: fixed;
 
-    background-color: darkslategray;
-    color: white;
+    background-color: transparent;
+    color: #eee;
+
+    font-size: 2em;
+    font-weight: bold;
+
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
 
     cursor: pointer;
     user-select: none;
@@ -133,8 +148,41 @@
 }
 
 .carousel-modal-button:hover {
-    background-color: lightslategray;
+    background-color: darkslategray;
+    color: white;
 }
+
+.carousel-modal-button.close {
+    top: .5em;
+    right: .5em;
+}
+
+.carousel-modal-button.prev {
+    top: 50%;
+    left: .5em;
+}
+
+.carousel-modal-button.next {
+    top: 50%;
+    right: .5em;
+}
+
+
+
+.carousel-modal-image {
+    display: block;
+    box-shadow: 0 0 2rem rgb(0, 0, 0, .75);
+    user-select: none;
+}
+
+.carousel-modal-article {
+    max-height: 33%;
+    overflow-y: auto;
+}
+
+
+
+
 
 
 

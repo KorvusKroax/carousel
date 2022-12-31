@@ -1,40 +1,20 @@
-<div class="carousel">
+<?php require("carousel_begin.php"); ?>
 
-    <div class="carousel-container">
+    <?php
+    $image = "images/dimmu-borgir_418x454.jpg";
+    $title = "Lorem ipsum";
+    $text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias earum, quia voluptatibus qui dolorem ut placeat magni voluptates dolores maxime. Mollitia repudiandae facilis quo laboriosam assumenda vero illo provident dignissimos.";
+    require("carousel_item.php");
 
-        <button class="carousel-button prev">&#10092;</button>
+    $image = "images/mia_goth_jenna_ortega_brittany_snow_kid_cudi_4k_hd_x_2022.jpg";
+    $title = "Lorem ipsum";
+    $text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias earum, quia voluptatibus qui dolorem ut placeat magni voluptates dolores maxime. Mollitia repudiandae facilis quo laboriosam assumenda vero illo provident dignissimos.";
+    require("carousel_item.php");
 
-        <div class="carousel-track-holder mask">
-            <div class="carousel-track">
+    $image = "images/sweeney-todd-johnny-depp-helena-bonham-carter-bythesea.jpg";
+    $title = "Lorem ipsum";
+    $text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias earum, quia voluptatibus qui dolorem ut placeat magni voluptates dolores maxime. Mollitia repudiandae facilis quo laboriosam assumenda vero illo provident dignissimos.";
+    require("carousel_item.php");
+    ?>
 
-
-
-                <?php
-                $image = "images/dimmu-borgir_418x454.jpg";
-                $title = "Lorem ipsum";
-                $text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias earum, quia voluptatibus qui dolorem ut placeat magni voluptates dolores maxime. Mollitia repudiandae facilis quo laboriosam assumenda vero illo provident dignissimos.";
-                require("card.php");
-
-                $image = "images/mia_goth_jenna_ortega_brittany_snow_kid_cudi_4k_hd_x_2022.jpg";
-                $title = "Lorem ipsum";
-                $text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias earum, quia voluptatibus qui dolorem ut placeat magni voluptates dolores maxime. Mollitia repudiandae facilis quo laboriosam assumenda vero illo provident dignissimos.";
-                require("card.php");
-
-                $image = "images/sweeney-todd-johnny-depp-helena-bonham-carter-bythesea.jpg";
-                $title = "Lorem ipsum";
-                $text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias earum, quia voluptatibus qui dolorem ut placeat magni voluptates dolores maxime. Mollitia repudiandae facilis quo laboriosam assumenda vero illo provident dignissimos.";
-                require("card.php");
-                ?>
-
-
-
-            </div>
-        </div>
-
-        <button class="carousel-button next">&#10093;</button>
-
-    </div>
-
-    <div class="carousel-indicator-container"></div>
-
-</div>
+<?php require("carousel_end.php"); ?>
