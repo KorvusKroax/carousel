@@ -23,7 +23,7 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 		card.addEventListener("click", () => 
         {
 			modal.showModal();
-			setSize();
+			setModalSize();
 		});
 
 		modalCloseButton.addEventListener("click", () => 
@@ -43,11 +43,9 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
             items[(index + 1) % items.length].querySelector(".carousel-card").click();
         });
 
-		window.addEventListener("resize", () => { if (modal.open) setSize(); });
 
 
-
-		function setSize() 
+		function setModalSize() 
         {
 			modalImage.style.width = "";
 			modalImage.style.height = "";
@@ -144,8 +142,6 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
         setButtonsVisibility();
     }
 
-	window.addEventListener("resize", () => { setIndicators(); });
-
 
 
 
@@ -186,6 +182,20 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 		buttonPrev.style.visibility = (trackIndex > 0) ? "visible" : "hidden";
 		buttonNext.style.visibility = (trackIndex < screenCount - 1) ? "visible" : "hidden";
 	}
+
+
+
+	
+
+	window.addEventListener("resize", () => 
+	{ 
+		if (modal.open)
+		{
+			setModalSize();
+		}
+
+		setIndicators(); 
+	});
 
 
 

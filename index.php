@@ -10,7 +10,7 @@
 
     <script src="script.js" defer></script>
 
-    <title>carousel test</title>
+    <title>carousel</title>
 </head>
 
 <body>
