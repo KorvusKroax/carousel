@@ -118,7 +118,9 @@
 .carousel-modal-button {
     width: 2em;
     aspect-ratio: 1 / 1;
+    
     position: fixed;
+    z-index: 1;
 
     background-color: transparent;
     color: white;

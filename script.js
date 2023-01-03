@@ -55,41 +55,51 @@ document.querySelectorAll(".carousel").forEach((carousel) =>
 			modalImage.style.height = "";
 			modal.style.width = "";
 
-			const pixelSize = 1 / window.devicePixelRatio;
-
-			const originalImageWidth = Math.floor(modalImage.naturalWidth * pixelSize);
-			const originalImageHeight = Math.floor(modalImage.naturalHeight * pixelSize);
-
 			const modalStyle = modal.currentStyle || window.getComputedStyle(modal);
 			const paddingHorizontal = parseInt(modalStyle.paddingLeft) + parseInt(modalStyle.paddingRight);
 			const paddingVertical = parseInt(modalStyle.paddingTop) + parseInt(modalStyle.paddingBottom);
 
 			const maxImageWidth = modal.clientWidth - paddingHorizontal;
-			const maxImageHeight = modal.clientHeight - paddingVertical;
 
-			let imageWidth = originalImageWidth;
-			let imageHeight = originalImageHeight;
+			let imageWidth = modalImage.naturalWidth;
+			let imageHeight = modalImage.naturalHeight;
 			if (imageWidth > maxImageWidth) 
             {
 				imageWidth = maxImageWidth;
-				imageHeight = imageWidth * (originalImageHeight / originalImageWidth);
+				imageHeight = imageWidth * (modalImage.naturalHeight / modalImage.naturalWidth);
 			}
 
 			modalImage.style.width = imageWidth + "px";
 			modalImage.style.height = imageHeight + "px";
 			modal.style.width = imageWidth + paddingHorizontal + "px";
 
-			imageHeight -= (modal.scrollHeight - modal.clientHeight);
-			while ((modal.scrollHeight > modal.clientHeight) && (imageHeight > maxImageHeight * 0.7))
-            {
-				imageWidth = imageHeight * (originalImageWidth / originalImageHeight);
 
+
+			const maxImageHeight = modal.clientHeight - paddingVertical;
+
+			if (imageHeight > maxImageHeight)
+			{
+				imageHeight = maxImageHeight;
+				imageWidth = imageHeight * (modalImage.naturalWidth / modalImage.naturalHeight);
+			
 				modalImage.style.width = imageWidth + "px";
 				modalImage.style.height = imageHeight + "px";
 				modal.style.width = imageWidth + paddingHorizontal + "px";
-
-				imageHeight -= (modal.scrollHeight - modal.clientHeight);
 			}
+
+
+
+			// imageHeight -= (modal.scrollHeight - modal.clientHeight);
+			// while ((modal.scrollHeight > modal.clientHeight) && (imageHeight > maxImageHeight * 0.7))
+            // {
+			// 	imageWidth = imageHeight * (modalImage.naturalWidth / modalImage.naturalHeight);
+
+			// 	modalImage.style.width = imageWidth + "px";
+			// 	modalImage.style.height = imageHeight + "px";
+			// 	modal.style.width = imageWidth + paddingHorizontal + "px";
+
+			// 	imageHeight -= (modal.scrollHeight - modal.clientHeight);
+			// }
 		}
         
         function closeModal()
