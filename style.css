@@ -128,10 +128,6 @@
     font-size: 2em;
     font-weight: bold;
 
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-
     cursor: pointer;
     user-select: none;
     outline: none;
